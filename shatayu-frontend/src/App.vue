@@ -1,12 +1,14 @@
 <script setup>
-import HelloWorld from "./components/HelloWorld.vue";
-import TheWelcome from "./components/TheWelcome.vue";
+import MainView from './components/MainView.vue';
+import SideBar from './components/SideBar.vue';
+
+
 </script>
 
 <template>
   <div class="row w-100 h-100">
-    <div class="col-2">Nav</div>
-    <div class="col-10">Main</div>
+    <SideBar class="col-2"></SideBar>
+    <MainView class="col-10"></MainView>
   </div>
 </template>
 

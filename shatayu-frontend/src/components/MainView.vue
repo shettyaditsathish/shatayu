@@ -1,6 +1,6 @@
 <template>
     <div>
-        Nav
+        Main
     </div>
 </template>
 <script lang="ts" setup>
