@@ -1,12 +1,12 @@
 <script setup>
-import MainView from './components/MainView.vue';
-import SideBar from './components/SideBar.vue';
-
-
+import HeaderView from "./components/HeaderView.vue";
+import MainView from "./components/MainView.vue";
+import SideBar from "./components/SideBar.vue";
 </script>
 
 <template>
-  <div class="row w-100 h-100">
+  <HeaderView style="height: 7%"></HeaderView>
+  <div class="row w-100 h-90" style="height: 93%">
     <SideBar class="col-2"></SideBar>
     <MainView class="col-10"></MainView>
   </div>
