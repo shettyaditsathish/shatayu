@@ -4,8 +4,10 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 import { createApp } from 'vue'
 import App from './App.vue'
+import PrimeVue from 'primevue/config';
+import Lara from '@primeuix/themes/lara';
 import PatientsView from './components/pages/PatientsView.vue';
-import { createMemoryHistory, createRouter, createWebHistory } from 'vue-router';
+import { createMemoryHistory, createRouter } from 'vue-router';
 import DashboardView from './components/pages/DashboardView.vue';
 import PanchkarmaView from './components/pages/PanchkarmaView.vue';
 
@@ -22,4 +24,9 @@ const router = createRouter({
 })
 const app = createApp(App)
 app.use(router)
+app.use(PrimeVue,{
+    theme: {
+        preset: Lara
+    }
+});
 app.mount('#app')
