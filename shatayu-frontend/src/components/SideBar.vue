@@ -8,7 +8,7 @@
           :class="{ active: activeItem === item.name }"
           @click="activeItem = item.name"
         >
-          {{ item.label }}
+          <RouterLink :to="item.path"> {{ item.label }} </RouterLink>
         </li>
       </ul>
     </nav>
@@ -17,11 +17,12 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
+import { RouterLink } from "vue-router";
 
 const navItems = [
-  { name: "dashboard", label: "Dashboard" },
-  { name: "patients", label: "Patients" },
-  { name: "panchakarma", label: "Panchakarma" },
+  { name: "dashboard", label: "Dashboard", path: "/" },
+  { name: "patients", label: "Patients", path: "/patients" },
+  { name: "panchakarma", label: "Panchakarma", path: "/panchkarma" },
 ];
 
 const activeItem = ref("dashboard");
