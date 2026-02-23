@@ -1,0 +1,17 @@
+/Users/aditshetty/dev/shatayu/shatayu-backend/src/main/java/com/shatayu/clinicmgmt/repository/PanchkarmaRepository.java
+/Users/aditshetty/dev/shatayu/shatayu-backend/src/main/java/com/shatayu/clinicmgmt/repository/TreatmentRepository.java
+/Users/aditshetty/dev/shatayu/shatayu-backend/src/main/java/com/shatayu/clinicmgmt/ClinicmgmtApplication.java
+/Users/aditshetty/dev/shatayu/shatayu-backend/src/main/java/com/shatayu/clinicmgmt/repository/TreatmentDrugRepository.java
+/Users/aditshetty/dev/shatayu/shatayu-backend/src/main/java/com/shatayu/clinicmgmt/controller/TreatmentController.java
+/Users/aditshetty/dev/shatayu/shatayu-backend/src/main/java/com/shatayu/clinicmgmt/entity/Panchkarma.java
+/Users/aditshetty/dev/shatayu/shatayu-backend/src/main/java/com/shatayu/clinicmgmt/entity/PatientPanchkarma.java
+/Users/aditshetty/dev/shatayu/shatayu-backend/src/main/java/com/shatayu/clinicmgmt/service/TreatmentService.java
+/Users/aditshetty/dev/shatayu/shatayu-backend/src/main/java/com/shatayu/clinicmgmt/repository/PatientRepository.java
+/Users/aditshetty/dev/shatayu/shatayu-backend/src/main/java/com/shatayu/clinicmgmt/repository/PatientPanchkarmaRepository.java
+/Users/aditshetty/dev/shatayu/shatayu-backend/src/main/java/com/shatayu/clinicmgmt/entity/Patient.java
+/Users/aditshetty/dev/shatayu/shatayu-backend/src/main/java/com/shatayu/clinicmgmt/entity/TreatmentDrug.java
+/Users/aditshetty/dev/shatayu/shatayu-backend/src/main/java/com/shatayu/clinicmgmt/controller/PatientController.java
+/Users/aditshetty/dev/shatayu/shatayu-backend/src/main/java/com/shatayu/clinicmgmt/service/PatientPanchkarmaService.java
+/Users/aditshetty/dev/shatayu/shatayu-backend/src/main/java/com/shatayu/clinicmgmt/service/PatientService.java
+/Users/aditshetty/dev/shatayu/shatayu-backend/src/main/java/com/shatayu/clinicmgmt/entity/Treatment.java
+/Users/aditshetty/dev/shatayu/shatayu-backend/src/main/java/com/shatayu/clinicmgmt/entity/Drug.java
