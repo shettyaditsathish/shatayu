@@ -22,6 +22,7 @@ import { RouterLink } from "vue-router";
 const navItems = [
   { name: "dashboard", label: "Dashboard", path: "/" },
   { name: "patients", label: "Patients", path: "/patients" },
+  { name: "addPatient", label: "Add Patient", path: "/addPatient" },
   { name: "panchakarma", label: "Panchakarma", path: "/panchkarma" },
 ];
 
@@ -47,8 +48,13 @@ li {
 }
 li.active {
   background: #1976d2;
-  color: #fff;
+  color: #fff !important;
   border-radius: 4px;
+  font-weight: bold;
+}
+
+li.active a {
+  color: #fff !important;
   font-weight: bold;
 }
 li:not(.active):hover {

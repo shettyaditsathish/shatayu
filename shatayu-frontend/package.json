@@ -6,13 +6,17 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "sta": "swagger-typescript-api generate --path ./openapi.json --output ./src/api/ --name api.ts --axios --default-as-successful-response --no-inheritance --no-client-props --no-enums"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "@primeuix/themes": "^1.2.3",
+    "axios": "^1.13.2",
     "bootstrap": "^5.3.7",
+    "primeicons": "^7.0.0",
     "primevue": "^4.3.7",
+    "swagger-typescript-api": "^13.2.16",
     "vite-plugin-inspect": "^11.3.3",
     "vue": "^3.5.17",
     "vue-router": "^4.5.1"
