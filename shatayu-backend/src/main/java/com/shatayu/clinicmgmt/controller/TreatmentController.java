@@ -8,7 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
@@ -48,5 +51,25 @@ public class TreatmentController {
     public PatientPanchkarma savePatientPanchkarma(@RequestBody PatientPanchkarma patientPanchkarma) {
         logger.info("Saving patient panchkarma: {}", patientPanchkarma);
         return patientPanchkarmaService.savePatientPanchkarma(patientPanchkarma);
+    }
+
+    @GetMapping("/treatmentsByDate")
+    public Page<Treatment> getTreatmentsByDateRange(
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
+            @RequestParam(defaultValue = "0") int offset,
+            @RequestParam(defaultValue = "500") int limit) {
+        logger.info("Fetching treatments from {} to {}", startDate, endDate);
+        return treatmentService.getTreatmentsByDateRange(startDate, endDate, offset, limit);
+    }
+
+    @GetMapping("/panchkarmaByDate")
+    public Page<PatientPanchkarma> getPanchkarmaByDateRange(
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
+            @RequestParam(defaultValue = "0") int offset,
+            @RequestParam(defaultValue = "500") int limit) {
+        logger.info("Fetching panchkarma treatments from {} to {}", startDate, endDate);
+        return patientPanchkarmaService.getPanchkarmaByDateRange(startDate, endDate, offset, limit);
     }
 }

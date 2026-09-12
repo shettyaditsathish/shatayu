@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class PatientPanchkarmaService {
 
@@ -16,6 +18,11 @@ public class PatientPanchkarmaService {
     public Page<PatientPanchkarma> getPanchkarmaByPatientId(Long patientId, int offset, int limit) {
         PageRequest pageRequest = PageRequest.of(offset / limit, limit);
         return patientPanchkarmaRepository.findByPatientIdOrderByStartDateDesc(patientId, pageRequest);
+    }
+
+    public Page<PatientPanchkarma> getPanchkarmaByDateRange(Date startDate, Date endDate, int offset, int limit) {
+        PageRequest pageRequest = PageRequest.of(offset / limit, limit);
+        return patientPanchkarmaRepository.findByStartDateBetweenOrderByStartDateDesc(startDate, endDate, pageRequest);
     }
 
     public PatientPanchkarma savePatientPanchkarma(PatientPanchkarma patientPanchkarma) {

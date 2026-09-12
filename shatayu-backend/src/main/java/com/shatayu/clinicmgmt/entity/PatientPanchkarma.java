@@ -13,6 +13,7 @@ import java.util.Date;
 public class PatientPanchkarma {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PATIENT_PANCH_ID", nullable = false)
     private Long patientPanchId;
 
@@ -22,6 +23,10 @@ public class PatientPanchkarma {
 
     @Column(name = "PATIENT_ID")
     private Long patientId;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "PATIENT_ID", insertable = false, updatable = false)
+    private Patient patient;
 
     @Column(name = "START_DATE", nullable = false)
     private Date startDate;

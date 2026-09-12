@@ -12,6 +12,7 @@ import lombok.*;
 public class Panchkarma {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PANCHKARMA_ID", nullable = false)
     private Long panchkarmaId;
 

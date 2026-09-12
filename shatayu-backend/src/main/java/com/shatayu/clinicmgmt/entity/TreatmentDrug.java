@@ -13,6 +13,7 @@ import lombok.*;
 public class TreatmentDrug {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "TREATMENT_DRUG_ID", nullable = false)
     private Long treatmentDrugId;
 

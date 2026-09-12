@@ -14,11 +14,16 @@ import java.util.List;
 public class Treatment {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "TREATMENT_ID", nullable = false)
     private Long treatmentId;
 
     @Column(name = "PATIENT_ID")
     private Long patientId;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "PATIENT_ID", insertable = false, updatable = false)
+    private Patient patient;
 
     @Column(name = "TREATMENT_DATE", nullable = false)
     private Date treatmentDate;
