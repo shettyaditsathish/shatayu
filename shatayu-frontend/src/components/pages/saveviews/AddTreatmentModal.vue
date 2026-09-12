@@ -1,193 +1,272 @@
 <template>
   <div>
     <Dialog
-      header="Add Treatment"
+      :header="treatment ? 'Edit Treatment' : 'Add Treatment'"
       v-model:visible="visibleModel"
       :style="{ width: '70vw' }"
       :modal="true"
     >
       <div class="p-fluid">
         <!-- Treatment Date -->
-        <div class="p-field p-grid">
-          <label for="treatmentDate" class="p-col-12 p-mb-2 p-md-3 p-mb-md-0"
-            >Treatment Date</label
-          >
-          <div class="p-col-12 p-md-9">
-            <DatePicker v-model="formData.treatmentDate" />
-          </div>
-        </div>
-        <div class="row mt-3">
-          <div class="p-col-12 p-md-6">
-            <label for="tongue" class="p-mb-2">Signs and Symptoms</label><br />
-            <Textarea id="tongue" v-model="formData.signsAndSymptoms" />
+        <div class="row mb-3">
+          <div class="col-3">
+            <label for="treatmentDate" class="field-label"
+              >Treatment Date</label
+            >
+            <DatePicker v-model="formData.treatmentDate" class="w-full" />
           </div>
         </div>
 
         <!-- Signs and Symptoms -->
-        <div class="p-field row mt-3">
-          <div class="col-6 col-md-6">
-            <label for="tongue" class="p-mb-2 w-100">Tongue</label><br />
-            <Textarea id="tongue" v-model="formData.tongue" />
+        <div class="row mb-3">
+          <div class="col-12">
+            <label for="signsSymptoms" class="field-label"
+              >Signs and Symptoms</label
+            >
+            <Textarea
+              id="signsSymptoms"
+              v-model="formData.signsSymptoms"
+              rows="2"
+              class="w-full"
+              fluid
+            />
           </div>
-          <div class="p-col-6 col-md-6">
-            <label for="pulse" class="p-mb-2">Pulse</label><br />
-            <Textarea id="pulse" v-model="formData.pulse" />
+        </div>
+
+        <!-- Tongue / Pulse -->
+        <div class="row mb-3">
+          <div class="col-6">
+            <label for="tongue" class="field-label">Tongue</label>
+            <Textarea
+              id="tongue"
+              v-model="formData.tongue"
+              rows="2"
+              class="w-full"
+              fluid
+            />
+          </div>
+          <div class="col-6">
+            <label for="pulse" class="field-label">Pulse</label>
+            <Textarea
+              id="pulse"
+              v-model="formData.pulse"
+              rows="2"
+              class="w-full"
+              fluid
+            />
           </div>
         </div>
 
         <!-- Investigations -->
-        <div class="p-field p-grid p-mt-3">
-          <label for="investigations" class="p-col-12 p-mb-2"
-            >Investigations</label
-          >
-          <div class="p-col-12">
+        <div class="row mb-3">
+          <div class="col-12">
+            <label for="investigations" class="field-label"
+              >Investigations</label
+            >
             <Textarea
               id="investigations"
               v-model="formData.investigations"
-              rows="3"
+              rows="2"
+              class="w-full"
+              fluid
+            />
+          </div>
+        </div>
+
+        <!-- Result/Remark -->
+        <div class="row mb-3">
+          <div class="col-12">
+            <label for="results" class="field-label">Result/Remark</label>
+            <Textarea
+              id="results"
+              v-model="formData.results"
+              rows="2"
+              class="w-full"
+              fluid
             />
           </div>
         </div>
 
         <!-- Amount Section -->
-        <div class="row mt-3">
+        <div class="row mb-3">
           <div class="col-4">
-            <label for="totalAmount">Total Amount</label>
-            <div class="p-inputgroup">
-              <InputNumber id="totalAmount" v-model="formData.totalAmount" />
-              <Button label="calc" @click="calculateBalance" />
+            <label for="totalAmount" class="field-label">Total Amount</label>
+            <div class="d-flex gap-2">
+              <InputNumber
+                id="totalAmount"
+                v-model="formData.totalAmount"
+                class="w-full"
+              />
+              <Button
+                label="calc"
+                severity="secondary"
+                outlined
+                @click="calculateBalance"
+              />
             </div>
           </div>
           <div class="col-4">
-            <label for="amountPaid" class="p-mb-2">Amount Paid</label><br />
+            <label for="amountPaid" class="field-label">Amount Paid</label>
             <InputNumber
               id="amountPaid"
               v-model="formData.amountPaid"
+              class="w-full"
               @input="calculateBalance"
             />
           </div>
           <div class="col-4">
-            <label for="balance" class="p-mb-2">Balance</label><br />
+            <label for="balance" class="field-label">Balance</label>
             <InputNumber
               id="balance"
               v-model="formData.balance"
+              class="w-full"
               :disabled="true"
             />
           </div>
         </div>
 
         <!-- Paid Status -->
-        <div class="d-flex mt-3">
-          <label for="paidStatus" class="p-col-12 mt-2 me-2">Paid Status</label>
-          <div class="p-col-12 p-md-9">
+        <div class="row mb-3">
+          <div class="col-3">
+            <label for="paidStatus" class="field-label">Paid Status</label>
             <Select
               id="paidStatus"
               v-model="formData.paidStatus"
               :options="paidStatusOptions"
               placeholder="Select Status"
+              class="w-full"
             />
           </div>
         </div>
 
-        <!-- Action Buttons -->
-        <div class="mt-5">
+        <!-- Add Row / Remove Row Buttons -->
+        <div class="section-actions mb-3">
           <Button
             label="Add Row"
             icon="pi pi-plus"
-            class="p-button-success p-mr-2"
+            class="btn-accent"
             @click="addRow"
           />
           <Button
             label="Remove Row"
             icon="pi pi-minus"
-            class="p-button-danger"
+            severity="danger"
+            outlined
             @click="removeRow"
           />
         </div>
 
-        <!-- Data Table -->
-        <div class="p-mt-3">
-          <DataTable
-            :value="tableData"
-            v-model:selection="selectedRow"
-            selectionMode="single"
-            dataKey="id"
-            class="p-datatable-sm"
-          >
-            <Column field="drugId" header="drugId">
-              <template #body="slotProps">
-                <Select
-                  v-if="slotProps.data.isEditing"
-                  v-model="slotProps.data.drugId"
-                  :options="drugOptions"
-                  optionLabel="name"
-                  optionValue="id"
-                  placeholder="Select Drug"
-                  class="p-inputtext-sm"
-                />
-                <span v-else>{{ getDrugName(slotProps.data.drugId) }}</span>
-              </template>
-            </Column>
-
-            <Column field="duration" header="duration">
-              <template #body="slotProps">
-                <div v-if="slotProps.data.isEditing" class="d-flex">
-                  <div>
-                    <InputNumber
-                      v-model="slotProps.data.duration.morning"
-                      :min="0"
-                      :max="9"
-                      :pt="{
-                        pcinputtext: { style: 'width: 60px' },
-                      }"
-                      :input-style="{ width: '60px' }"
-                    />
-                  </div>
-
-                  <span class="mt-2 ms-2 me-2"> - </span>
-                  <div>
-                    <InputNumber
-                      v-model="slotProps.data.duration.afternoon"
-                      :min="0"
-                      :max="9"
-                      :input-style="{ width: '60px' }"
-                    />
-                  </div>
-
-                  <span class="mt-2 ms-2 me-2">-</span>
-                  <div>
-                    <InputNumber
-                      v-model="slotProps.data.duration.night"
-                      :min="0"
-                      :max="9"
-                      :input-style="{ width: '60px' }"
-                    />
-                  </div>
-                </div>
-                <span v-else>{{
-                  formatDuration(slotProps.data.duration)
-                }}</span>
-              </template>
-            </Column>
-
-            <Column field="noofdays" header="noofdays">
-              <template #body="slotProps">
+        <!-- Drug Table -->
+        <DataTable
+          :value="tableData"
+          v-model:selection="selectedRow"
+          selectionMode="single"
+          dataKey="id"
+          class="mb-3"
+        >
+          <Column field="drugName" header="Medicine" style="width: 35%">
+            <template #body="slotProps">
+              <Select
+                v-if="slotProps.data.isEditing"
+                v-model="slotProps.data.drug"
+                :options="drugs"
+                optionLabel="drugName"
+                filter
+                filterPlaceholder="Search drug..."
+                placeholder="Select drug"
+                class="w-full"
+              />
+              <span v-else class="drug-name">{{
+                slotProps.data.drug?.drugName || ""
+              }}</span>
+            </template>
+          </Column>
+          <Column field="duration" header="Duration" style="width: 25%">
+            <template #body="slotProps">
+              <div
+                v-if="slotProps.data.isEditing"
+                class="d-flex align-items-center gap-1"
+              >
                 <InputNumber
-                  v-if="slotProps.data.isEditing"
-                  v-model="slotProps.data.noofdays"
-                  :min="1"
-                  class="p-inputtext-sm"
+                  v-model="slotProps.data.durationMorning"
+                  :min="0"
+                  :max="9"
+                  :input-style="{ width: '60px' }"
                 />
-                <span v-else>{{ slotProps.data.noofdays }}</span>
-              </template>
-            </Column>
+                <span> - </span>
+                <InputNumber
+                  v-model="slotProps.data.durationAfternoon"
+                  :min="0"
+                  :max="9"
+                  :input-style="{ width: '60px' }"
+                />
+                <span> - </span>
+                <InputNumber
+                  v-model="slotProps.data.durationNight"
+                  :min="0"
+                  :max="9"
+                  :input-style="{ width: '60px' }"
+                />
+              </div>
+              <span v-else class="cell-mono">{{
+                formatDuration(slotProps.data)
+              }}</span>
+            </template>
+          </Column>
+          <Column field="noOfDays" header="No of Days" style="width: 20%">
+            <template #body="slotProps">
+              <InputNumber
+                v-if="slotProps.data.isEditing"
+                v-model="slotProps.data.noOfDays"
+                :min="1"
+                class="w-full"
+              />
+              <span v-else>{{ slotProps.data.noOfDays }}</span>
+            </template>
+          </Column>
+          <Column header="" style="width: 20%">
+            <template #body="slotProps">
+              <div class="d-flex gap-2">
+                <Button
+                  v-if="slotProps.data.isEditing"
+                  icon="pi pi-check"
+                  severity="success"
+                  size="small"
+                  text
+                  v-tooltip.top="'Save'"
+                  @click="saveDrugRow(slotProps.data)"
+                />
+                <Button
+                  v-else
+                  icon="pi pi-pencil"
+                  severity="warning"
+                  size="small"
+                  text
+                  v-tooltip.top="'Edit'"
+                  @click="editDrugRow(slotProps.data)"
+                />
+                <Button
+                  icon="pi pi-trash"
+                  severity="danger"
+                  size="small"
+                  text
+                  v-tooltip.top="'Delete'"
+                  @click="deleteDrugRow(slotProps.data)"
+                />
+              </div>
+            </template>
+          </Column>
+        </DataTable>
 
-            <Column field="emptyCol" header="emptyCol">
-              <template #body>
-                <!-- Empty column -->
-              </template>
-            </Column>
-          </DataTable>
+        <!-- Generate Invoice -->
+        <div class="mt-3">
+          <Button
+            label="Generate Invoice"
+            icon="pi pi-file"
+            severity="secondary"
+            outlined
+            @click="generateInvoice"
+          />
         </div>
       </div>
 
@@ -195,13 +274,13 @@
         <Button
           label="Cancel"
           icon="pi pi-times"
-          class="p-button-text"
-          @click="showDialog = false"
+          text
+          @click="visibleModel = false"
         />
         <Button
           label="Submit Data"
           icon="pi pi-check"
-          class="p-button-success"
+          class="btn-accent"
           @click="submitData"
         />
       </template>
@@ -210,6 +289,7 @@
 </template>
 
 <script setup>
+import { ref, reactive, watch, onMounted } from "vue";
 import {
   Button,
   Column,
@@ -217,26 +297,50 @@ import {
   DatePicker,
   Dialog,
   InputNumber,
-  InputText,
   Select,
   Textarea,
 } from "primevue";
-import { ref, reactive } from "vue";
+import apiService from "@/api/apiservice";
 
-const showDialog = ref(false);
-const selectedRow = ref(null);
-const nextId = ref(1);
+const props = defineProps({
+  treatment: {
+    type: Object,
+    default: null,
+  },
+  patientId: {
+    type: Number,
+    default: null,
+  },
+});
+
+const emit = defineEmits(["saved"]);
 
 let visibleModel = defineModel("showModal", {
   type: Boolean,
   required: true,
 });
 
+const selectedRow = ref(null);
+let nextId = 1;
+
+const drugs = ref([]);
+
+onMounted(async () => {
+  try {
+    const resp = await apiService.drugs.getActiveDrugs();
+    drugs.value = resp.data;
+  } catch (error) {
+    console.error("Error loading drugs:", error.message);
+  }
+});
+
 const formData = reactive({
   treatmentDate: new Date(),
+  signsSymptoms: "",
   tongue: "",
   pulse: "",
   investigations: "",
+  results: "",
   totalAmount: 0,
   amountPaid: 0,
   balance: 0,
@@ -244,27 +348,78 @@ const formData = reactive({
 });
 
 const paidStatusOptions = ["Y", "N"];
-
 const tableData = ref([]);
 
-const drugOptions = [
-  { id: 1, name: "Paracetamol" },
-  { id: 2, name: "Ibuprofen" },
-  { id: 3, name: "Amoxicillin" },
-  { id: 4, name: "Aspirin" },
-  { id: 5, name: "Metformin" },
-];
+// Watch for treatment prop changes to populate form for editing
+watch(
+  () => props.treatment,
+  (newTreatment) => {
+    if (newTreatment) {
+      formData.treatmentDate = newTreatment.treatmentDate
+        ? new Date(newTreatment.treatmentDate)
+        : new Date();
+      formData.signsSymptoms = newTreatment.signsSymptoms || "";
+      formData.tongue = newTreatment.tongue || "";
+      formData.pulse = newTreatment.pulse || "";
+      formData.results = newTreatment.results || "";
+      formData.amountPaid = newTreatment.amountPaid || 0;
+      formData.balance = newTreatment.balance || 0;
+      formData.paidStatus = newTreatment.paid || null;
+      formData.totalAmount =
+        (newTreatment.amountPaid || 0) + (newTreatment.balance || 0);
+      formData.investigations = "";
+
+      if (
+        newTreatment.treatmentDrugs &&
+        newTreatment.treatmentDrugs.length > 0
+      ) {
+        tableData.value = newTreatment.treatmentDrugs.map((td) => {
+          const dur = parseDuration(td.duration);
+          return {
+            id: nextId++,
+            drug: td.drug || null,
+            durationMorning: dur.morning,
+            durationAfternoon: dur.afternoon,
+            durationNight: dur.night,
+            noOfDays: td.noOfDays || 1,
+            isEditing: false,
+          };
+        });
+      } else {
+        tableData.value = [];
+      }
+    } else {
+      resetForm();
+    }
+  },
+);
+
+const parseDuration = (durationStr) => {
+  if (!durationStr) return { morning: 0, afternoon: 0, night: 0 };
+  const parts = durationStr.split("-").map(Number);
+  return {
+    morning: parts[0] || 0,
+    afternoon: parts[1] || 0,
+    night: parts[2] || 0,
+  };
+};
+
+const formatDuration = (row) => {
+  return `${row.durationMorning || 0}-${row.durationAfternoon || 0}-${row.durationNight || 0}`;
+};
+
+const calculateBalance = () => {
+  formData.balance = formData.totalAmount - formData.amountPaid;
+};
 
 const addRow = () => {
   tableData.value.push({
-    id: nextId.value++,
-    drugId: null,
-    duration: {
-      morning: 1,
-      afternoon: 1,
-      night: 1,
-    },
-    noofdays: 1,
+    id: nextId++,
+    drug: null,
+    durationMorning: 1,
+    durationAfternoon: 1,
+    durationNight: 1,
+    noOfDays: 1,
     isEditing: true,
   });
 };
@@ -272,72 +427,76 @@ const addRow = () => {
 const removeRow = () => {
   if (selectedRow.value) {
     const index = tableData.value.findIndex(
-      (row) => row.id === selectedRow.value.id
+      (row) => row.id === selectedRow.value.id,
     );
     if (index > -1) {
       tableData.value.splice(index, 1);
       selectedRow.value = null;
     }
   } else {
-    toast.add({
-      severity: "warn",
-      summary: "Warning",
-      detail: "Please select a row to remove",
-      life: 3000,
-    });
+    alert("Please select a row to remove");
   }
 };
 
-const calculateBalance = () => {
-  formData.balance = formData.totalAmount - formData.amountPaid;
+const editDrugRow = (row) => {
+  row.isEditing = true;
 };
 
-const getDrugName = (drugId) => {
-  const drug = drugOptions.find((d) => d.id === drugId);
-  return drug ? drug.name : "";
+const saveDrugRow = (row) => {
+  row.isEditing = false;
 };
 
-const formatDuration = (duration) => {
-  return `${duration.morning}-${duration.afternoon}-${duration.night}`;
+const deleteDrugRow = (row) => {
+  const index = tableData.value.findIndex((r) => r.id === row.id);
+  if (index > -1) {
+    tableData.value.splice(index, 1);
+    if (selectedRow.value?.id === row.id) {
+      selectedRow.value = null;
+    }
+  }
+};
+
+const generateInvoice = () => {
+  console.log("Treatment form:", formData);
+  console.log("Drugs:", tableData.value);
+  alert("Invoice generated!");
 };
 
 const submitData = () => {
-  // Validate data
   if (!formData.treatmentDate) {
     alert("Please select a treatment date");
     return;
   }
 
-  // Set all rows to non-editing mode
   tableData.value.forEach((row) => {
     row.isEditing = false;
   });
 
   const submitPayload = {
     ...formData,
+    patientId: props.patientId,
     prescriptions: tableData.value.map((row) => ({
-      drugId: row.drugId,
-      duration: formatDuration(row.duration),
-      noofdays: row.noofdays,
+      drugName: row.drugName,
+      duration: formatDuration(row),
+      noOfDays: row.noOfDays,
     })),
   };
 
   console.log("Submitting data:", submitPayload);
-
-  // Here you would typically make an API call
-  // fetch('/api/treatments', { method: 'POST', body: JSON.stringify(submitPayload) })
-
   alert("Data submitted successfully!");
-  showDialog.value = false;
+  visibleModel.value = false;
+  emit("saved");
   resetForm();
 };
 
 const resetForm = () => {
   Object.assign(formData, {
     treatmentDate: new Date(),
+    signsSymptoms: "",
     tongue: "",
     pulse: "",
     investigations: "",
+    results: "",
     totalAmount: 0,
     amountPaid: 0,
     balance: 0,
@@ -349,19 +508,41 @@ const resetForm = () => {
 </script>
 
 <style scoped>
-.p-field {
-  margin-bottom: 1rem;
+.field-label {
+  display: block;
+  margin-bottom: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--slate-500);
 }
 
-.duration-input {
-  width: 60px;
+.btn-accent {
+  background: var(--emerald-600) !important;
+  border-color: var(--emerald-600) !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
 }
 
-.p-inputgroup-addon {
-  padding: 0.5rem;
+.btn-accent:hover {
+  background: var(--emerald-700) !important;
+  border-color: var(--emerald-700) !important;
 }
 
-.p-datatable-sm .p-datatable-tbody > tr > td {
-  padding: 0.5rem;
+.section-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.drug-name {
+  font-weight: 600;
+  color: var(--slate-900);
+}
+
+.cell-mono {
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: var(--slate-600);
 }
 </style>

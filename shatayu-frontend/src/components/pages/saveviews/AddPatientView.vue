@@ -1,35 +1,38 @@
 <template>
-  <div class="">
+  <div class="add-patient-page">
     <!-- Patient Basic Info Section -->
-    <Panel header="Patient Information" class="mb-3">
+    <Panel header="New Patient Enrollment" class="mb-4">
       <div class="row">
         <div class="col-4 md:col-4">
           <div class="field">
-            <label for="firstName" class="font-semibold">First Name</label>
+            <label for="firstName" class="field-label">First Name</label>
             <InputText
               id="firstName"
               v-model="patient.firstName"
               class="w-full"
+              placeholder="e.g., Sunil"
             />
           </div>
         </div>
         <div class="col-4 md:col-4">
           <div class="field">
-            <label for="middleName" class="font-semibold">Middle Name</label>
+            <label for="middleName" class="field-label">Middle Name</label>
             <InputText
               id="middleName"
               v-model="patient.middleName"
               class="w-full"
+              placeholder="e.g., Kumar"
             />
           </div>
         </div>
         <div class="col-4 md:col-4">
           <div class="field">
-            <label for="lastName" class="font-semibold">Last Name</label>
+            <label for="lastName" class="field-label">Last Name</label>
             <InputText
               id="lastName"
               v-model="patient.lastName"
               class="w-full"
+              placeholder="e.g., Varma"
             />
           </div>
         </div>
@@ -38,13 +41,18 @@
       <div class="row">
         <div class="col-2 md:col-2">
           <div class="field">
-            <label for="age" class="font-semibold">Age</label>
-            <InputNumber id="age" v-model="patient.age" class="w-full" />
+            <label for="age" class="field-label">Age</label>
+            <InputNumber
+              id="age"
+              v-model="patient.age"
+              class="w-full"
+              placeholder="e.g., 35"
+            />
           </div>
         </div>
         <div class="col-2 md:col-2">
           <div class="field">
-            <label for="sex" class="font-semibold">Sex</label>
+            <label for="sex" class="field-label">Gender</label>
             <Dropdown
               id="sex"
               v-model="patient.sex"
@@ -56,7 +64,7 @@
         </div>
         <div class="col-2 md:col-2">
           <div class="field">
-            <label for="dob" class="font-semibold">Date of Birth</label>
+            <label for="dob" class="field-label">Date of Birth</label>
             <Calendar
               id="dob"
               v-model="patient.dob"
@@ -67,14 +75,24 @@
         </div>
         <div class="col-2 md:col-3">
           <div class="field">
-            <label for="telNo" class="font-semibold">Tel No</label>
-            <InputText id="telNo" v-model="patient.telNo" class="w-full" />
+            <label for="telNo" class="field-label">Tel No</label>
+            <InputText
+              id="telNo"
+              v-model="patient.telNo"
+              class="w-full"
+              placeholder="Landline number"
+            />
           </div>
         </div>
         <div class="col-4 md:col-3">
           <div class="field">
-            <label for="mobile" class="font-semibold">Mobile</label>
-            <InputText id="mobile" v-model="patient.mobile" class="w-full" />
+            <label for="mobile" class="field-label">Mobile</label>
+            <InputText
+              id="mobile"
+              v-model="patient.mobile"
+              class="w-full"
+              placeholder="e.g., 99482 12345"
+            />
           </div>
         </div>
       </div>
@@ -82,99 +100,46 @@
       <div class="row">
         <div class="col-6">
           <div class="field">
-            <label for="address" class="font-semibold">Address</label>
+            <label for="address" class="field-label">Address</label>
             <Textarea
               id="address"
               v-model="patient.address"
               rows="2"
               class="w-full"
               fluid
+              placeholder="Complete physical address..."
             />
           </div>
         </div>
         <div class="col-6 md:col-6">
           <div class="field">
-            <label for="kco" class="font-semibold">K/C/O</label>
-            <InputText id="kco" v-model="patient.kco" class="w-full" />
+            <label for="kco" class="field-label">K/C/O</label>
+            <InputText
+              id="kco"
+              v-model="patient.kco"
+              class="w-full"
+              placeholder="Known case of..."
+            />
           </div>
         </div>
       </div>
     </Panel>
 
-    <!-- Treatment Section -->
-    <Panel header="Treatment" class="mb-3">
-      <div class="mb-3 flex gap-2">
-        <Button
-          label="Add Treatment Details"
-          icon="pi pi-plus"
-          @click="addTreatment"
-        />
-        <Button
-          label="Edit Treatment Details"
-          icon="pi pi-pencil"
-          severity="warning"
-          @click="editTreatment"
-        />
-        <Button
-          label="Delete Treatment"
-          icon="pi pi-trash"
-          severity="danger"
-          @click="deleteTreatment"
-        />
-        <Button
-          label="Billing"
-          icon="pi pi-dollar"
-          severity="success"
-          @click="openBilling"
-        />
-      </div>
-
-      <DataTable
-        :value="treatments"
-        v-model:selection="selectedTreatment"
-        selectionMode="single"
-        dataKey="id"
-        :paginator="true"
-        :rows="5"
-        tableStyle="min-width: 50rem"
-      >
-        <Column field="date" header="Date" style="width: 15%"></Column>
-        <Column
-          field="signsSymptoms"
-          header="Signs and Symptoms"
-          style="width: 30%"
-        ></Column>
-        <Column
-          field="rxDuration"
-          header="Rx and Duration"
-          style="width: 30%"
-        ></Column>
-        <Column field="tongue" header="Tongue" style="width: 12.5%"></Column>
-        <Column field="pulse" header="Pulse" style="width: 12.5%"></Column>
-      </DataTable>
-    </Panel>
-
-    <!-- Panchkarma Treatment Section -->
-    <Panel header="Panchkarma Treatment" class="mb-3">
-      <div class="mb-3">
-        <Button
-          label="Save Patient Details"
-          icon="pi pi-save"
-          severity="success"
-          @click="savePatient"
-        />
-      </div>
-
-      <!-- Add Panchkarma treatment fields here if needed -->
-    </Panel>
-
-    <!-- Add/Edit Treatment Dialog -->
-    <AddTreatmentModal v-model:showModal="showTreatmentDialog" />
+    <div class="section-actions">
+      <Button
+        label="Save Patient Details"
+        icon="pi pi-save"
+        class="btn-accent"
+        :loading="savingPatient"
+        @click="savePatient"
+      />
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ref, reactive } from "vue";
+import apiService from "@/api/apiservice";
 import Panel from "primevue/panel";
 import InputText from "primevue/inputtext";
 import InputNumber from "primevue/inputnumber";
@@ -182,10 +147,6 @@ import Dropdown from "primevue/dropdown";
 import Calendar from "primevue/calendar";
 import Textarea from "primevue/textarea";
 import Button from "primevue/button";
-import DataTable from "primevue/datatable";
-import Column from "primevue/column";
-import AddTreatmentModal from "./AddTreatmentModal.vue";
-//const toast = useToast();
 
 // Patient data
 const patient = reactive({
@@ -204,18 +165,6 @@ const patient = reactive({
 // Dropdown options
 const sexOptions = ref(["Male", "Female", "Other"]);
 
-// Treatment data
-const treatments = ref([
-  {
-    id: 1,
-    date: "02/12/2023",
-    signsSymptoms: "Headache, fever",
-    rxDuration: "Paracetamol 500mg - 3 days",
-    tongue: "Normal",
-    pulse: "72 bpm",
-  },
-]);
-
 const selectedTreatment = ref(null);
 const showTreatmentDialog = ref(false);
 const isEditMode = ref(false);
@@ -229,127 +178,76 @@ const currentTreatment = reactive({
   pulse: "",
 });
 
-// Treatment methods
-const addTreatment = () => {
-  isEditMode.value = false;
-  resetCurrentTreatment();
-  showTreatmentDialog.value = true;
-};
+const savingPatient = ref(false);
 
-const editTreatment = () => {
-  if (!selectedTreatment.value) {
-    toast.add({
-      severity: "warn",
-      summary: "Warning",
-      detail: "Please select a treatment to edit",
-      life: 3000,
-    });
-    return;
-  }
-  isEditMode.value = true;
-  Object.assign(currentTreatment, selectedTreatment.value);
-  showTreatmentDialog.value = true;
-};
-
-const deleteTreatment = () => {
-  if (!selectedTreatment.value) {
-    toast.add({
-      severity: "warn",
-      summary: "Warning",
-      detail: "Please select a treatment to delete",
-      life: 3000,
-    });
-    return;
-  }
-  const index = treatments.value.findIndex(
-    (t) => t.id === selectedTreatment.value.id
-  );
-  if (index > -1) {
-    treatments.value.splice(index, 1);
-    selectedTreatment.value = null;
-    toast.add({
-      severity: "success",
-      summary: "Success",
-      detail: "Treatment deleted successfully",
-      life: 3000,
-    });
-  }
-};
-
-const saveTreatment = () => {
-  if (isEditMode.value) {
-    const index = treatments.value.findIndex(
-      (t) => t.id === currentTreatment.id
-    );
-    if (index > -1) {
-      treatments.value[index] = { ...currentTreatment };
-    }
-    toast.add({
-      severity: "success",
-      summary: "Success",
-      detail: "Treatment updated successfully",
-      life: 3000,
-    });
-  } else {
-    const newTreatment = {
-      ...currentTreatment,
-      id: treatments.value.length + 1,
+const savePatient = async () => {
+  savingPatient.value = true;
+  try {
+    const payload = {
+      firstName: patient.firstName,
+      middleName: patient.middleName,
+      lastName: patient.lastName,
+      age: patient.age,
+      sex: patient.sex,
+      initialDate: patient.dob ? patient.dob.toISOString() : null,
+      landline: patient.telNo,
+      mobile1: patient.mobile,
+      address: patient.address,
+      knownCases: patient.kco,
     };
-    treatments.value.push(newTreatment);
-    toast.add({
-      severity: "success",
-      summary: "Success",
-      detail: "Treatment added successfully",
-      life: 3000,
-    });
+    await apiService.patient.savePatient(payload);
+    alert("Patient saved successfully");
+  } catch (error) {
+    console.error("Error saving patient:", error.message);
+    alert("Error saving patient");
+  } finally {
+    savingPatient.value = false;
   }
-  showTreatmentDialog.value = false;
-  resetCurrentTreatment();
-};
-
-const resetCurrentTreatment = () => {
-  currentTreatment.id = null;
-  currentTreatment.date = null;
-  currentTreatment.signsSymptoms = "";
-  currentTreatment.rxDuration = "";
-  currentTreatment.tongue = "";
-  currentTreatment.pulse = "";
-};
-
-const openBilling = () => {
-  toast.add({
-    severity: "info",
-    summary: "Billing",
-    detail: "Opening billing module...",
-    life: 3000,
-  });
-};
-
-const savePatient = () => {
-  toast.add({
-    severity: "success",
-    summary: "Success",
-    detail: "Patient details saved successfully",
-    life: 3000,
-  });
-  console.log("Patient data:", patient);
-  console.log("Treatments:", treatments.value);
 };
 </script>
 
 <style scoped>
-.patient-treatment-container {
-  padding: 1.5rem;
-  max-width: 1400px;
-  margin: 0 auto;
+.add-patient-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .field {
   margin-bottom: 1rem;
 }
 
-.field label {
+.field-label {
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--slate-500);
+}
+
+.btn-accent {
+  background: var(--emerald-600) !important;
+  border-color: var(--emerald-600) !important;
+  font-weight: 600 !important;
+  font-size: 0.8rem !important;
+  border-radius: 8px !important;
+}
+
+.btn-accent:hover {
+  background: var(--emerald-700) !important;
+  border-color: var(--emerald-700) !important;
+}
+
+.section-actions {
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
 }
 </style>

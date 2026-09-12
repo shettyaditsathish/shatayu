@@ -1,29 +1,169 @@
 @import './base.css';
 
 #app {
-  margin: 0 auto;
-  font-weight: normal;
-  padding:5px;
-  height:100vh
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
 }
 
-a,
-.green {
+a {
   text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
+  color: var(--color-accent);
+  transition: 0.2s;
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
+a:hover {
+  color: var(--color-accent-hover);
 }
 
-@media (min-width: 1024px) {
-  #app {
-   width:100%;
-   height:100vh;
-  }
+/* Override PrimeVue defaults to match our design system */
+.p-datatable .p-datatable-thead > tr > th {
+  background: var(--slate-50) !important;
+  color: var(--slate-400) !important;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--slate-100) !important;
+  padding: 0.875rem 1.25rem !important;
+}
+
+.p-datatable .p-datatable-tbody > tr > td {
+  padding: 0.875rem 1.25rem !important;
+  border-bottom: 1px solid var(--slate-100) !important;
+  font-size: 0.875rem;
+  color: var(--slate-700);
+}
+
+.p-datatable .p-datatable-tbody > tr:hover {
+  background: var(--slate-50) !important;
+}
+
+.p-datatable .p-datatable-tbody > tr.p-row-odd {
+  background: transparent !important;
+}
+
+/* Panel overrides */
+.p-panel .p-panel-header {
+  background: var(--slate-900) !important;
+  color: white !important;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0 !important;
+  padding: 1rem 1.5rem !important;
+  border: none !important;
+}
+
+.p-panel .p-panel-content {
+  border: 1px solid var(--slate-100) !important;
+  border-top: none !important;
+  border-radius: 0 0 var(--radius-xl) var(--radius-xl) !important;
+  padding: 1.5rem !important;
+}
+
+.p-panel {
+  border-radius: var(--radius-xl) !important;
+  box-shadow: var(--shadow-sm) !important;
+  border: none !important;
+  overflow: hidden;
+}
+
+/* Button overrides for emerald */
+.p-button.p-button-success {
+  background: var(--emerald-600) !important;
+  border-color: var(--emerald-600) !important;
+}
+
+.p-button.p-button-success:hover {
+  background: var(--emerald-700) !important;
+  border-color: var(--emerald-700) !important;
+}
+
+/* Dialog overrides */
+.p-dialog .p-dialog-header {
+  background: var(--slate-900) !important;
+  color: white !important;
+  padding: 1.25rem 1.5rem !important;
+}
+
+.p-dialog .p-dialog-header .p-dialog-title {
+  color: white !important;
+  font-weight: 700 !important;
+}
+
+.p-dialog .p-dialog-header .p-dialog-header-icon {
+  color: var(--slate-300) !important;
+}
+
+.p-dialog .p-dialog-content {
+  padding: 1.5rem !important;
+}
+
+.p-dialog {
+  border-radius: var(--radius-xl) !important;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* Accordion overrides */
+.p-accordion .p-accordion-header .p-accordion-header-link {
+  background: var(--slate-900) !important;
+  color: white !important;
+  border: none !important;
+  font-weight: 600 !important;
+  padding: 1rem 1.5rem !important;
+  border-radius: var(--radius-lg) !important;
+}
+
+.p-accordion .p-accordion-content {
+  border: 1px solid var(--slate-100) !important;
+  border-top: none !important;
+  padding: 1.25rem !important;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg) !important;
+}
+
+/* InputText refinements */
+.p-inputtext {
+  border-radius: 8px !important;
+  border: 1px solid var(--slate-200) !important;
+  transition: all 0.2s !important;
+}
+
+.p-inputtext:focus {
+  border-color: var(--emerald-500) !important;
+  box-shadow: 0 0 0 2px rgba(5, 150, 105, 0.15) !important;
+}
+
+/* ProgressSpinner */
+.p-progress-spinner-circle {
+  stroke: var(--emerald-600) !important;
+}
+
+/* Message refinements */
+.p-message {
+  border-radius: var(--radius-lg) !important;
+}
+
+/* Calendar/DatePicker */
+.p-datepicker {
+  border-radius: var(--radius-lg) !important;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--slate-300);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--slate-400);
 }

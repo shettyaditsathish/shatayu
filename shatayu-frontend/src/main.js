@@ -13,6 +13,8 @@ import PanchkarmaView from './components/pages/PanchkarmaView.vue';
 import 'primeicons/primeicons.css'; 
 import AddPatientView from './components/pages/saveviews/AddPatientView.vue';
 import PatientDetailsView from './components/pages/PatientDetailsView.vue';
+import DrugsView from './components/pages/DrugsView.vue';
+import TreatmentByDateView from './components/pages/TreatmentByDateView.vue';
 const routes = [
 
   { path: '/patients', component: PatientsView },
@@ -20,6 +22,8 @@ const routes = [
   { path: '/panchkarma', component: PanchkarmaView },
    { path: '/addPatient', component: AddPatientView },
    { path: '/patientDetails', component: PatientDetailsView },
+   { path: '/drugs', component: DrugsView },
+   { path: '/treatmentByDate', component: TreatmentByDateView },
 ]
 
 const router = createRouter({

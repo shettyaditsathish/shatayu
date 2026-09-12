@@ -1,64 +1,110 @@
 <template>
-  <nav
-    data-v-b1bcf79c=""
-    data-v-071eda8c=""
-    class="navbar navbar-expand-lg navbar-light appbar-header"
-    aria-label="Main navigation"
-  >
-    <button
-      data-v-b1bcf79c=""
-      class="p-button p-component p-button-primary p-button-outlined ms-2"
-      data-p="outlined"
-      type="button"
-      data-pc-name="button"
-      data-p-disabled="false"
-      data-p-severity="primary"
-      data-bs-toggle="tooltip"
-      data-bs-placement="bottom"
-      title="Toggle Navigation"
-      pc5=""
-      data-pc-section="root"
-    >
-      <i data-v-b1bcf79c="" class="pi pi-bars"></i>
-    </button>
+  <header class="app-header">
+    <div class="header-search">
+      <i class="pi pi-search search-icon"></i>
+      <input
+        type="text"
+        placeholder="Search patients, conditions, drugs, IDs..."
+        class="search-input"
+      />
+    </div>
 
-    <div data-v-b1bcf79c="" class="ms-3 me-4 divider">
-      <div class="logo mr-auto">
-        <h1 class="text-light">
-          <a href="index.html"><span>S</span>hatayu</a>
-        </h1>
+    <div class="header-actions">
+      <div class="header-date">
+        <span class="date-label">Today</span>
+        <span class="date-value">{{ formattedDate }}</span>
       </div>
     </div>
-    <!---->
-    <div data-v-b1bcf79c="" class="col"></div>
-    <div data-v-b1bcf79c="" class="col" id="navbarsExampleDefault">
-      <div data-v-b1bcf79c="" class="d-flex justify-content-end">
-        <div data-v-b1bcf79c="" class="grid me-2 mt-3">
-          <span data-v-b1bcf79c=""><b data-v-b1bcf79c="">Shatayu</b></span>
-        </div>
-        <div data-v-b1bcf79c="" class="dropdown" style="margin-right: 1.5rem">
-          <span data-v-b1bcf79c="" class="badge rounded-pill bg-light"></span>
-        </div>
-        <!---->
-        <form data-v-b1bcf79c="" class="mt-2">
-          <Button
-            data-v-b1bcf79c=""
-            class="p-button p-component p-button-primary p-button-outlined mt-1 me-2"
-            data-p="outlined"
-            type="submit"
-            data-pc-name="button"
-            data-p-disabled="false"
-            data-p-severity="primary"
-            pc8=""
-            data-pc-section="root"
-          >
-            <i data-v-b1bcf79c="" class="c"></i> Sign Out
-          </Button>
-        </form>
-      </div>
-    </div>
-  </nav>
+  </header>
 </template>
+
 <script lang="ts" setup>
-import { Button } from "primevue";
+import { computed } from "vue";
+
+const formattedDate = computed(() => {
+  const now = new Date();
+  return now.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+});
 </script>
+
+<style scoped>
+.app-header {
+  background: white;
+  border-bottom: 1px solid var(--slate-100);
+  padding: 0.875rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.header-search {
+  position: relative;
+  width: 24rem;
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--slate-400);
+  font-size: 0.875rem;
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.5rem 1rem 0.5rem 2.25rem;
+  background: var(--slate-50);
+  border: 1px solid var(--slate-200);
+  border-radius: 8px;
+  font-size: 0.8rem;
+  color: var(--slate-700);
+  outline: none;
+  transition: all 0.2s;
+}
+
+.search-input:focus {
+  border-color: var(--emerald-500);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+}
+
+.search-input::placeholder {
+  color: var(--slate-400);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header-date {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+}
+
+.date-label {
+  font-size: 0.65rem;
+  color: var(--slate-400);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.date-value {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--slate-700);
+}
+</style>
